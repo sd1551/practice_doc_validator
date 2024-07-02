@@ -1,0 +1,249 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 25%, #e9ecef 25%, #e9ecef 50%, #f8f9fa 50%, #f8f9fa 75%, #e9ecef 75%, #e9ecef);
+    background-size: 56.57px 56.57px;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+    position: relative; /* Для позиционирования фоновых анимаций */
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #343a40;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+    animation: fadeInDown 0.5s ease-in-out;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease-in-out;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+th:not(:last-child), td:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+input[type="text"], input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus, input[type="file"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeInUp 0.5s ease-in-out;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.document {
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    font-size: 0.9em;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Анимированные элементы */
+#home-page h1::after {
+    content: '😐';
+    display: block;
+    font-size: 1.5em;
+    text-align: center;
+    animation: float 2s ease-in-out infinite;
+    color: #007bff;
+    margin-top: 10px;
+}
+
+#add_user_page h1::after {
+    content: '😆';
+    display: block;
+    font-size: 1.5em;
+    text-align: center;
+    animation: float 2s ease-in-out infinite;
+    color: #007bff;
+    margin-top: 10px;
+}
+#upload_page h1::after {
+    content: '😎';
+    display: block;
+    font-size: 1.5em;
+    text-align: center;
+    animation: float 2s ease-in-out infinite;
+    color: #007bff;
+    margin-top: 10px;
+}
+
+button::after {
+    content: '➤';
+    display: inline-block;
+    margin-left: 10px;
+    transition: margin-left 0.3s;
+}
+
+button:hover::after {
+    margin-left: 20px;
+}
+
+/* Фоновая анимация */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/climpek.png');
+    opacity: 0.2;
+    z-index: -1;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    opacity: 0.1;
+    z-index: -2;
+    animation: rotateBackground 20s linear infinite;
+}
+
+@keyframes rotateBackground {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

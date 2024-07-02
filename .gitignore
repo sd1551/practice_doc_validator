@@ -1,0 +1,4 @@
+# Project exclude paths
+/practice_document_parser/target/
+/practice_document_user/target/
+/practice_document_validator/target/

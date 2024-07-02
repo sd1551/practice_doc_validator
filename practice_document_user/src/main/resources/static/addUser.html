@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавить пользователя</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body id="add_user_page">
+<h1>Добавить пользователя</h1>
+<form id="addUserForm">
+  <label for="login">Введите логин:</label>
+  <input type="text" id="login" name="Логин" required>
+  <button type="submit">Добавить пользователя</button>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addUserButton = document.querySelector('button[onclick*="addUser.html"]');
+        if (addUserButton) {
+            addUserButton.addEventListener('click', () => {
+                addUserButton.style.transform = 'scale(0.95)';
+                setTimeout(() => addUserButton.style.transform = 'scale(1)', 150);
+            });
+        }
+
+        const uploadButtons = document.querySelectorAll('button[onclick*="uploadDocument.html"]');
+        uploadButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => button.style.transform = 'scale(1)', 150);
+            });
+        });
+    });
+</script>
+<script>
+        document.getElementById('addUserForm').onsubmit = function (e) {
+            e.preventDefault();
+
+            const user = {
+                login: document.getElementById('login').value
+            };
+
+            fetch('/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Пользователь успешно добавлен');
+                    window.location.href = '/index.html';
+                } else {
+                    alert('Ошибка добавления пользователя!');
+                }
+            });
+        };
+    </script>
+</body>
+</html>
