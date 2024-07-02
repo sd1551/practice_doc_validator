@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body id="home-page">
+<h1>Пользователи</h1>
+<a href="/users/add"><button>Добавить пользователя</button></a>
+<table id="usersTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Логин</th>
+        <th>Документы</th>
+    </tr>
+    </thead>
+    <tbody id="usersTableBody">
+    <tr th:each="user : ${users}">
+        <td th:text="${user.userId}"></td>
+        <td th:text="${user.login}"></td>
+        <td>
+            <div th:each="doc : ${user.documents}">
+                ID документа: <span th:text="${doc.documentId}"></span>, Тип документа: <span th:text="${doc.documentType}"></span>, Валидация: <span th:text="${doc.validationResult}"></span>
+            </div>
+        </td>
+        <td><a th:href="@{/users/{userId}/upload(userId=${user.userId})}"><button>Загрузить документ</button></a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

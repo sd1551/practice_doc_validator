@@ -14,7 +14,9 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    String UPLOAD_DIR = "static/uploads/";
+
+    private final String UPLOAD_DIR = "static/uploads/";
+
     @Autowired
     private final UserRepository userRepository;
     @Autowired
@@ -35,7 +37,7 @@ public class UserService {
     public void uploadDocument(UUID userId, MultipartFile file) throws IOException {
         UUID documentId = UUID.randomUUID();
 
-        Path filePath = Paths.get(UPLOAD_DIR + File.separator + documentId + ".jpg");
+        Path filePath = Paths.get(UPLOAD_DIR + File.separator + documentId + file.getOriginalFilename());
 
         try {
             Files.createDirectories(filePath.getParent());
