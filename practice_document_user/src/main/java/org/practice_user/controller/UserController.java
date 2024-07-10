@@ -1,5 +1,7 @@
-package org.practice_user;
+package org.practice_user.controller;
 
+import org.practice_user.dto.UserDto;
+import org.practice_user.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

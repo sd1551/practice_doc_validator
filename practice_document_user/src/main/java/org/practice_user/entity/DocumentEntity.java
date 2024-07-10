@@ -1,4 +1,4 @@
-package org.practice_user;
+package org.practice_user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,15 +6,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
-@Data
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Table(name = "document_entity")
 public class DocumentEntity {
-
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

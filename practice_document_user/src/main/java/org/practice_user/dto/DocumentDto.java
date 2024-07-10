@@ -1,4 +1,4 @@
-package org.practice_user;
+package org.practice_user.dto;
 
 import lombok.*;
 

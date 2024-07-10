@@ -1,4 +1,4 @@
-package org.practice_user;
+package org.practice_user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,10 +10,6 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "user_entity")
 public class UserEntity {
 

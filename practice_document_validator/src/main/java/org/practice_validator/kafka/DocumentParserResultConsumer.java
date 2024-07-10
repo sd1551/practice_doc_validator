@@ -1,6 +1,7 @@
 package org.practice_validator.kafka;
 
 import org.practice_validator.DocumentRepository;
+import org.practice_validator.mapper.DocumentMapper;
 import org.practice_validator.validator.Validator;
 import org.practice_validator.dto.DocumentDto;
 import org.practice_validator.entity.DocumentEntity;
@@ -9,7 +10,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class DocumentParserResultConsumer {
@@ -23,30 +23,24 @@ public class DocumentParserResultConsumer {
     @KafkaListener(topics = "result-parser-document", groupId = "group_id")
     public void consume(DocumentDto documentDto) {
         try {
-            DocumentEntity documentEntity = documentRepository.findById(documentDto.getDocumentId())
-                    .orElse(new DocumentEntity());
+            DocumentEntity documentEntity = DocumentMapper.INSTANCE.toEntity(documentDto);
 
-            documentEntity.setDocumentId(documentDto.getDocumentId());
-            documentEntity.setUserId(UUID.fromString(documentDto.getUserId()));
-            documentEntity.setFirstName(documentDto.getFirstName());
-            documentEntity.setLastName(documentDto.getLastName());
-            documentEntity.setMiddleName(documentDto.getMiddleName());
-            documentEntity.setDocumentNumber(documentDto.getNumber());
-            documentEntity.setDocumentType(DocumentEntity.DocumentType.PASSPORT);
+            DocumentEntity existingDocument = documentRepository.findById(documentEntity.getDocumentId())
+                    .orElse(documentEntity);
 
             Validator validator = validators.stream()
-                    .filter(v -> v.getTypeValidation() == documentEntity.getDocumentType())
+                    .filter(v -> v.getTypeValidation() == existingDocument.getDocumentType())
                     .findFirst()
                     .orElse(null);
 
             if (validator != null) {
-                boolean isValid = validator.applicableValidation(documentEntity);
-                documentEntity.setValidationResult(isValid);
+                boolean isValid = validator.applicableValidation(existingDocument);
+                existingDocument.setValidationResult(isValid);
             } else {
-                documentEntity.setValidationResult(false);
+                existingDocument.setValidationResult(false);
             }
 
-            documentRepository.save(documentEntity);
+            documentRepository.save(existingDocument);
         } catch (Exception e) {
             System.err.println("Ошибка обработки документа: " + e.getMessage());
             e.printStackTrace();

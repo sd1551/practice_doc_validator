@@ -1,41 +1,25 @@
 package org.practice_user;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
+import org.practice_user.dto.DocumentDto;
+import org.practice_user.entity.DocumentEntity;
+
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
-public class DocumentMapper {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface DocumentMapper {
 
-    public static DocumentDto toDto(DocumentEntity documentEntity) {
-        DocumentDto documentDto = new DocumentDto();
-        documentDto.setDocumentId(documentEntity.getDocumentId());
-        documentDto.setUserId(documentEntity.getUserId().toString());
-        documentDto.setLastName(documentEntity.getLastName());
-        documentDto.setFirstName(documentEntity.getFirstName());
-        documentDto.setMiddleName(documentEntity.getMiddleName());
-        documentDto.setNumber(documentEntity.getDocumentNumber());
-        documentDto.setDocumentType(DocumentDto.DocumentType.PASSPORT);
-        documentDto.setValidationResult(documentEntity.getValidationResult());
-        return documentDto;
-    }
+    @Mapping(source = "documentNumber", target = "number")
+    @Mapping(target = "documentType", constant = "PASSPORT")
+    DocumentDto toDto(DocumentEntity documentEntity);
 
-    public static List<DocumentDto> toDtoList(List<DocumentEntity> documentEntities) {
-        return documentEntities.stream().map(DocumentMapper::toDto).collect(Collectors.toList());
-    }
+    List<DocumentDto> toDtoList(List<DocumentEntity> documentEntities);
 
-    public static DocumentEntity toEntity(DocumentDto documentDto) {
-        DocumentEntity documentEntity = new DocumentEntity();
-        documentEntity.setDocumentId(documentDto.getDocumentId());
-        documentEntity.setUserId(UUID.fromString(documentDto.getUserId()));
-        documentEntity.setLastName(documentDto.getLastName());
-        documentEntity.setFirstName(documentDto.getFirstName());
-        documentEntity.setMiddleName(documentDto.getMiddleName());
-        documentEntity.setDocumentNumber(documentDto.getNumber());
-        documentEntity.setDocumentType(DocumentEntity.DocumentType.PASSPORT);
-        return documentEntity;
-    }
+    @Mapping(source = "number", target = "documentNumber")
+    @Mapping(target = "documentType", constant = "PASSPORT")
+    DocumentEntity toEntity(DocumentDto documentDto);
 
-    public static List<DocumentEntity> toEntityList(List<DocumentDto> documentDtos) {
-        return documentDtos.stream().map(DocumentMapper::toEntity).collect(Collectors.toList());
-    }
+    List<DocumentEntity> toEntityList(List<DocumentDto> documentDtos);
 }

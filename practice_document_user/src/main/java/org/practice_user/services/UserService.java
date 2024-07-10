@@ -1,4 +1,9 @@
-package org.practice_user;
+package org.practice_user.services;
+import org.practice_user.UserMapper;
+import org.practice_user.dto.UserDto;
+import org.practice_user.entity.UserEntity;
+import org.practice_user.repo.DocumentRepository;
+import org.practice_user.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -22,16 +27,19 @@ public class UserService {
     @Autowired
     private final DocumentRepository documentRepository;
     @Autowired
+    private final UserMapper userMapper;
+    @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    public UserService(UserRepository userRepository, DocumentRepository documentRepository) {
+    public UserService(UserRepository userRepository, DocumentRepository documentRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.documentRepository = documentRepository;
+        this.userMapper = userMapper;
     }
 
     public List<UserDto> getAllUsers() {
-        return UserMapper.toDtoList(userRepository.findAll());
+        return userMapper.toDtoList(userRepository.findAll());
     }
 
     public void uploadDocument(UUID userId, MultipartFile file) throws IOException {
